@@ -31,18 +31,24 @@ describe 'restaurants index page' do
     end
   end
 
-context 'editing existing restaurants' do
-before { Restaurant.create(name: 'KFC', address: '1 high st, London') }
-  it 'can change the name of a restaurant' do
-    visit('/restaurants')
-    click_on 'Edit KFC'
-    fill_in 'Name', with: 'Mother Clucker'
-    click_button 'Update Restaurant'
-    expect(current_path).to eq '/restaurants'
-    expect(page).to have_content 'Mother Clucker'
+  context 'editing existing restaurants' do
+    before { Restaurant.create(name: 'KFC', address: '1 high st, London') }
+    it 'can change the name of a restaurant' do
+      visit('/restaurants')
+      click_on 'Edit KFC'
+      fill_in 'Name', with: 'Mother Clucker'
+      click_button 'Update Restaurant'
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Mother Clucker'
+    end
+
+    it 'can delete a restaurant' do
+      visit('/restaurants')
+      click_on 'Delete KFC'
+      expect(page).to_not have_content 'KFC'
+      expect(page).to have_content 'KFC Deleted'
+    end
+
   end
-
-
-end
 
 end
