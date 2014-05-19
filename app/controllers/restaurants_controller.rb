@@ -10,7 +10,8 @@ class RestaurantsController < ApplicationController
 	end
 
 	def create
-		Restaurant.create({name: 'InAndOutBurger', address: '1 California Drive, Los Angeles'})
+		# {name: params["restaurant"]["name"], address: params["restaurant"]["address"]}
+		Restaurant.create(params[:restaurant].permit(:address, :name))
 		redirect_to('/restaurants')
 	end
 

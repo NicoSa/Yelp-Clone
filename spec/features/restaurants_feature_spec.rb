@@ -19,6 +19,16 @@ describe 'restaurants index page' do
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'InAndOutBurger'
     end
+
+    it 'can add a different restaurant' do
+      visit ('/restaurants/new')
+      fill_in 'Name', with: 'Lardo'
+      fill_in 'Address', with: '1 California Drive, Los Angeles'
+      click_button 'Create Restaurant'
+
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Lardo'
+    end
   end
 
 end
