@@ -45,8 +45,9 @@ describe 'restaurants index page' do
     it 'can delete a restaurant' do
       visit('/restaurants')
       click_on 'Delete KFC'
+      expect(current_path).to eq '/restaurants'
       expect(page).to_not have_content 'KFC'
-      expect(page).to have_content 'KFC Deleted'
+      expect(page).to have_content 'Entry Deleted'
     end
 
   end
