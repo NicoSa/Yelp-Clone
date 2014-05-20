@@ -2,6 +2,7 @@
 <% @restaurants.each do |restaurant| %>
 	<%= restaurant.name %><a href="/restaurants/<%= restaurant.id %>/edit">Edit <%= restaurant.name %></a>
       <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+      No reviews
 	<% end %>
 <% else %>
 	No restaurants yet
