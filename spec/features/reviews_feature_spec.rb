@@ -14,7 +14,7 @@ describe 'reviews function' do
   	click_on('Add Review')
   	fill_in "Comment", with: 'Very good, awesome!'
 	select('5', :from => 'Rating')
-	click_on('Submit Review')
+	click_on('Create Review')
 	expect(current_path).to eq '/restaurants'
 	expect(page).to have_content('Very good, awesome')
 	expect(page).to have_content('5')
