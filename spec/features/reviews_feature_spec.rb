@@ -12,7 +12,7 @@ describe 'reviews function' do
   it 'one review has been added' do
   	visit('/restaurants')
   	click_on('Add Review')
-  	fill_in :comment, with: 'Very good, awesome!'
+  	fill_in "Comment", with: 'Very good, awesome!'
 	select('5', :from => 'Rating')
 	click_on('Submit Review')
 	expect(current_path).to eq '/restaurants'
