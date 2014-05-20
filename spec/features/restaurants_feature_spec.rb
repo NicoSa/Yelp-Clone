@@ -19,9 +19,11 @@ describe 'restaurants index page' do
 
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'InAndOutBurger'
-      expect(Restaurant.find_by(name: 'InAndOutBurger')).to be_true
-      expect(Restaurant.find_by(address: '1 California Drive, Los Angeles')).to be_true
-      expect(Restaurant.find_by(cuisine: 'Burgers')).to be_true
+
+      restaurant = Restaurant.first
+      expect(restaurant.name).to eq('InAndOutBurger')
+      expect(restaurant.address).to eq('1 California Drive, Los Angeles')
+      expect(restaurant.cuisine).to eq('Burgers')
     end
 
     it 'can add a different restaurant' do
