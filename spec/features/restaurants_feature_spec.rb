@@ -36,6 +36,18 @@ describe 'restaurants index page' do
     end
   end
 
+
+  context 'creating an INVALID restaurant' do
+    it 'with invalid name' do
+      visit('/restaurants/new')
+      fill_in 'Name', with: ''
+      fill_in 'Address', with: ''
+      fill_in 'Cuisine', with: ''
+      click_button 'Create Restaurant'
+      expect(page).to have_content 'Error'
+    end
+  end
+
   context 'editing existing restaurants' do
     before { Restaurant.create(name: 'KFC', address: '1 high st, London') }
     it 'can change the name of a restaurant' do
