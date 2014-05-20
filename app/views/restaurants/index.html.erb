@@ -1,8 +1,9 @@
 <% if @restaurants.any? %>
 	<% @restaurants.each do |restaurant| %>
-		<%= restaurant.name %><a href="/restaurants/<%= restaurant.id %>/edit">Edit <%= restaurant.name %></a>
-	      <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-	      <%= link_to "Add Review", new_restaurant_review_path(restaurant) %>
+		<h1><%= restaurant.name %></h1><a href="/restaurants/<%= restaurant.id %>/edit"> Edit <%= restaurant.name %></a>
+	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+	      <%= link_to " Add Review", new_restaurant_review_path(restaurant) %>
+	      <h4><%= pluralize restaurant.reviews.count , 'review' %></h4>
 			  <ul>
 			  <% if restaurant.reviews.count == 0 %>
 			  	No reviews

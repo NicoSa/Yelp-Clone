@@ -20,5 +20,29 @@ describe 'reviews function' do
 	expect(page).to have_content('5')
   end
 
+  it 'should display number+review for one entry' do
+  	visit('/restaurants')
+  	click_on('Add Review')
+  	fill_in "Comment", with: 'Very good, awesome!'
+	select('5', :from => 'Rating')
+	click_on('Create Review')
+	expect(current_path).to eq '/restaurants'
+	expect(page).to have_content('1 review')
+  end
+
+  it 'should display number+reviews for more than one entry' do
+  	visit('/restaurants')
+  	click_on('Add Review')
+  	fill_in "Comment", with: 'Very good, awesome!'
+	select('5', :from => 'Rating')
+	click_on('Create Review')
+	click_on('Add Review')
+  	fill_in "Comment", with: 'Sucks!'
+	select('2', :from => 'Rating')
+	click_on('Create Review')
+	expect(current_path).to eq '/restaurants'
+	expect(page).to have_content('2 reviews')
+  end
+
   
 end
