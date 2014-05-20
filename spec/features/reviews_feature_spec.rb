@@ -44,5 +44,16 @@ describe 'reviews function' do
 	expect(page).to have_content('2 reviews')
   end
 
+  it 'can delete a review' do
+	  visit('/restaurants')
+	  click_on('Add Review')
+	  fill_in "Comment", with: 'Very good, awesome!'
+	  select('5', :from => 'Rating')
+	  click_on('Create Review')
+      click_on('Delete Very good, awesome!')
+      expect(current_path).to eq '/restaurants'
+      expect(page).to_not have_content 'Very good, awesome!'
+  end
+
   
 end

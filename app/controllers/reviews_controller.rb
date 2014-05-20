@@ -11,4 +11,12 @@ class ReviewsController < ApplicationController
   	redirect_to('/restaurants')
   end
 
+  def destroy
+  	restaurant = Restaurant.find(params[:restaurant_id])
+  	to_destroy = restaurant.reviews.find(params[:id])
+  	to_destroy.destroy
+  	redirect_to('/restaurants')
+
+  end
+
 end
