@@ -14,16 +14,21 @@ describe 'restaurants index page' do
       visit ('/restaurants/new')
       fill_in 'Name', with: 'InAndOutBurger'
       fill_in 'Address', with: '1 California Drive, Los Angeles'
+      fill_in 'Cuisine', with: 'Burgers'
       click_button 'Create Restaurant'
 
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'InAndOutBurger'
+      expect(Restaurant.find_by(name: 'InAndOutBurger')).to be_true
+      expect(Restaurant.find_by(address: '1 California Drive, Los Angeles')).to be_true
+      expect(Restaurant.find_by(cuisine: 'Burgers')).to be_true
     end
 
     it 'can add a different restaurant' do
       visit ('/restaurants/new')
       fill_in 'Name', with: 'Lardo'
-      fill_in 'Address', with: '1 California Drive, Los Angeles'
+      fill_in 'Address', with: '205 Richmond Road, London'
+      fill_in 'Cuisine', with: 'Pizzaria'
       click_button 'Create Restaurant'
 
       expect(current_path).to eq '/restaurants'
