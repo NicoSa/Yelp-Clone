@@ -51,7 +51,7 @@ describe 'restaurants index page' do
   end
 
   context 'editing existing restaurants' do
-    before { Restaurant.create(name: 'KFC', address: '1 high st, London') }
+    before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
     it 'can change the name of a restaurant' do
       visit('/restaurants')
       click_on 'Edit KFC'

@@ -1,36 +1,41 @@
 class RestaurantsController < ApplicationController
 
 
-	def new
-		@restaurant = Restaurant.new
-	end
+  def new
+    @restaurant = Restaurant.new
+  end
 
-	def index
-		@restaurants = Restaurant.all
-	end
+  def index
+    @restaurants = Restaurant.all
+  end
 
-	def create
-		# {name: params["restaurant"]["name"], address: params["restaurant"]["address"]}
-		Restaurant.create(params[:restaurant].permit(:address, :name, :cuisine))
-		redirect_to('/restaurants')
-	end
+  def create
+    # {name: params["restaurant"]["name"], address: params["restaurant"]["address"]}
+    @restaurant = Restaurant.new(params[:restaurant].permit(:address, :name, :cuisine))
 
-	def edit
-		@restaurant = Restaurant.find(params[:id])
-	end
+    if @restaurant.save
+      redirect_to('/restaurants')
+    else
+      render 'new'
+    end 	
+  end
 
-	def update
-		@restaurant = Restaurant.find(params[:id])
+  def edit
+    @restaurant = Restaurant.find(params[:id])
+  end
 
-		@restaurant.update(params[:restaurant].permit(:name, :address, :cuisine))
-		redirect_to('/restaurants')
-	end
+  def update
+    @restaurant = Restaurant.find(params[:id])
 
-	def destroy
-		@restaurant = Restaurant.find(params[:id])
-		@restaurant.destroy
-		flash[:notice]='Entry Deleted'
-		redirect_to('/restaurants')
-	end
+    @restaurant.update(params[:restaurant].permit(:name, :address, :cuisine))
+    redirect_to('/restaurants')
+  end
+
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
+    flash[:notice]='Entry Deleted'
+    redirect_to('/restaurants')
+  end
 
 end
