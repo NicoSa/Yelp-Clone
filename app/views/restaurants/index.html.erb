@@ -2,7 +2,7 @@
 	<% @restaurants.each do |restaurant| %>
 		<h1><%= restaurant.name %></h1><a href="/restaurants/<%= restaurant.id %>/edit"> Edit <%= restaurant.name %></a>
 	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-	      <%= link_to " Add Review", new_restaurant_review_path(restaurant) %>
+	     <!-- <%=  link_to " Add Review", new_restaurant_review_path(restaurant) %> -->
 	      <% if restaurant.reviews.any? %>
 	      	<h3>Average Rating: <%= restaurant.average_rating.round %> <%= star_rating(restaurant.average_rating.round) %></h3>
 	      <% else %>

@@ -25,7 +25,6 @@ describe 'reviews function' do
 
   it 'should display number+reviews for more than one entry' do
   	add_review(5,"Very good")
-		click_on('Add Review')
   	fill_in "Comment", with: 'Sucks!'
 		select('2', :from => 'Rating')
 		click_on('Create Review')
