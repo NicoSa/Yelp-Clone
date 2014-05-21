@@ -4,4 +4,8 @@ class Restaurant < ActiveRecord::Base
   validates :cuisine, presence: true, format: { with: /.../, message: "Error: Cuisine needs to be longer"}
 
   has_many :reviews
+
+  def average_rating
+    reviews.average(:rating)
+  end
 end

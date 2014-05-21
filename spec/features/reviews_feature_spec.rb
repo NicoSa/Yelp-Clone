@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'reviews function' do
-  
+
   before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
 
   specify 'no reviews have been added' do
@@ -39,14 +39,6 @@ describe 'reviews function' do
     expect(page).to_not have_content 'Very good, awesome!'
   end
 
-	def add_review(rating, comment="")
-	  	visit('/restaurants')
-	  	click_on('Add Review')
-	  	fill_in "Comment", with: 'Very good, awesome!'
-			select('5', :from => 'Rating')
-			click_on('Create Review')
-	end
-
   # specify 'rating can never be bigger than 5' do
   # 	add_review_with_invalid_rating(100)
   # end
@@ -64,5 +56,5 @@ describe 'reviews function' do
   #   expect(current_path).to eq '/restaurants'
   #   expect(page).to_not have_content "#{rating}"
   # end
-  
+
 end

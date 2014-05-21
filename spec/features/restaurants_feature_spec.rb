@@ -11,22 +11,12 @@ describe 'restaurants index page' do
 
   end
 
-  def create_restaurant(name="", address="", cuisine="")
-    visit ('/restaurants/new')
-    fill_in 'Name', with: "#{name}"
-    fill_in 'Address', with: "#{address}"
-    fill_in 'Cuisine', with: "#{cuisine}"
-    click_button 'Create Restaurant'
-  end                       
-
-  
-
   context 'creating a restaurant' do
 
-    
+
     it 'adds it to the restaurants index' do
       create_restaurant("InAndOutBurger","1 California Drive, Los Angeles", "Burgers")
-      
+
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'InAndOutBurger'
 
@@ -47,7 +37,7 @@ describe 'restaurants index page' do
 
 
   context 'creating an INVALID restaurant' do
-    
+
     it 'with invalid name' do
       create_restaurant
       expect(page).to have_content 'Error'
@@ -74,6 +64,28 @@ describe 'restaurants index page' do
       expect(current_path).to eq '/restaurants'
       expect(page).to_not have_content 'KFC'
       expect(page).to have_content 'Entry Deleted'
+    end
+
+  end
+
+  context 'average rating' do
+    it 'displays average rating for a restaurant' do
+      create_restaurant("Apo's Peninsula Restaurant", "Polichrono", "Greek")
+      add_review(5)
+      add_review(3)
+
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Average Rating: 4'
+    end
+
+    it 'displays average rating for more reviews' do
+      create_restaurant("Apo's Peninsula Restaurant", "Polichrono", "Greek")
+      add_review(5)
+      add_review(3)
+      add_review(2)
+
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Average Rating: 3'
     end
 
   end

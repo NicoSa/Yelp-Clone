@@ -16,7 +16,6 @@ class ReviewsController < ApplicationController
   	to_destroy = restaurant.reviews.find(params[:id])
   	to_destroy.destroy
   	redirect_to('/restaurants')
-
   end
 
 end

@@ -5,6 +5,23 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara'
 
+def create_restaurant(name="", address="", cuisine="")
+  visit ('/restaurants/new')
+  fill_in 'Name', with: "#{name}"
+  fill_in 'Address', with: "#{address}"
+  fill_in 'Cuisine', with: "#{cuisine}"
+  click_button 'Create Restaurant'
+end
+
+def add_review(rating, comment="")
+  visit('/restaurants')
+  click_on('Add Review')
+  fill_in "Comment", with: "#{comment}"
+  select("#{rating}", :from => 'Rating')
+  click_on('Create Review')
+end
+
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
