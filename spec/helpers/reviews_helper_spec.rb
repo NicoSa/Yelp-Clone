@@ -16,6 +16,10 @@ describe ReviewsHelper do
 			expect(star_rating(3.5)).to eq "★★★★☆"
 		end
 
+		it 'displays only number' do
+			expect(star_rating('N/A')).to eq 'N/A'
+		end
+
 	end
 
 end
