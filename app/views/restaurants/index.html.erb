@@ -9,7 +9,7 @@
 			  	No reviews
 			  <% else %>
 				      <% restaurant.reviews.each do |review| %>
-				      	<li><%= review.comment %> | <%= review.rating %> <%= link_to "Delete #{review.comment}", restaurant_review_path(restaurant, review), method: :delete %></li>
+				      	<li><%= review.comment %> | <%= review.rating %> <%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %></li>
 			      	  <% end %>
 			  <% end %> 
 			  </ul> 
