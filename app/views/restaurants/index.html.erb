@@ -3,7 +3,11 @@
 		<h1><%= restaurant.name %></h1><a href="/restaurants/<%= restaurant.id %>/edit"> Edit <%= restaurant.name %></a>
 	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
 	      <%= link_to " Add Review", new_restaurant_review_path(restaurant) %>
-	      <h3>Average Rating: <%= restaurant.average_rating.round %></h3>
+	      <% if restaurant.reviews.any? %>
+	      	<h3>Average Rating: <%= restaurant.average_rating.round %></h3>
+	      <% else %>
+	      	No Average Rating available
+	      <% end %>
 	      <h4><%= pluralize restaurant.reviews.count , 'review' %></h4>
 			  <ul>
 			  <% if restaurant.reviews.count == 0 %>
