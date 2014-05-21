@@ -6,7 +6,7 @@
 	      <% if restaurant.reviews.any? %>
 	      	<h3>Average Rating: <%= restaurant.average_rating.round %> <%= star_rating(restaurant.average_rating.round) %></h3>
 	      <% else %>
-	      	No Average Rating available
+	      	<br><br><strong>No Average Rating available<strong>
 	      <% end %>
 	      <h4><%= pluralize restaurant.reviews.count , 'review' %></h4>
 			  <ul>
