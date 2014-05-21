@@ -3,20 +3,30 @@ require 'spec_helper'
 describe 'restaurants index page' do
 
   context 'no restaurants have been added' do
+
     it 'should display a message' do
       visit('/restaurants')
       expect(page).to have_content 'No restaurants yet'
     end
+
   end
 
-  context 'creating a restaurant' do
-    it 'adds it to the restaurants index' do
-      visit ('/restaurants/new')
-      fill_in 'Name', with: 'InAndOutBurger'
-      fill_in 'Address', with: '1 California Drive, Los Angeles'
-      fill_in 'Cuisine', with: 'Burgers'
-      click_button 'Create Restaurant'
+  def create_restaurant(name="", address="", cuisine="")
+    visit ('/restaurants/new')
+    fill_in 'Name', with: "#{name}"
+    fill_in 'Address', with: "#{address}"
+    fill_in 'Cuisine', with: "#{cuisine}"
+    click_button 'Create Restaurant'
+  end                       
 
+  
+
+  context 'creating a restaurant' do
+
+    
+    it 'adds it to the restaurants index' do
+      create_restaurant("InAndOutBurger","1 California Drive, Los Angeles", "Burgers")
+      
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'InAndOutBurger'
 
@@ -27,31 +37,28 @@ describe 'restaurants index page' do
     end
 
     it 'can add a different restaurant' do
-      visit ('/restaurants/new')
-      fill_in 'Name', with: 'Lardo'
-      fill_in 'Address', with: '205 Richmond Road, London'
-      fill_in 'Cuisine', with: 'Pizzaria'
-      click_button 'Create Restaurant'
+      create_restaurant("Lardo", "205 Richmond Road, London", "Pizzaria")
 
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'Lardo'
     end
+
   end
 
 
   context 'creating an INVALID restaurant' do
+    
     it 'with invalid name' do
-      visit('/restaurants/new')
-      fill_in 'Name', with: ''
-      fill_in 'Address', with: ''
-      fill_in 'Cuisine', with: ''
-      click_button 'Create Restaurant'
+      create_restaurant
       expect(page).to have_content 'Error'
     end
+
   end
 
   context 'editing existing restaurants' do
+
     before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
+
     it 'can change the name of a restaurant' do
       visit('/restaurants')
       click_on 'Edit KFC'
