@@ -6,10 +6,14 @@ class ReviewsController < ApplicationController
   end
 
   def create
-  	restaurant = Restaurant.find(params[:restaurant_id])
-  	restaurant.reviews.create(params[:review].permit(:comment, :rating))
-  	redirect_to('/restaurants')
+  	@restaurant = Restaurant.find(params[:restaurant_id])
+    review = @restaurant.reviews.create!(params[:review].permit(:comment, :rating))
+      respond_to do |format|
+        # format.html{ redirect_to '/restaurants' }
+        format.json{ render json: review }
+      end
   end
+  
 
   def destroy
   	restaurant = Restaurant.find(params[:restaurant_id])

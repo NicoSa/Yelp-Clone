@@ -10,7 +10,7 @@ describe 'reviews function' do
     expect(page).to have_content 'No reviews'
   end
 
-  it 'one review has been added' do
+  it 'one review has been added', js: true do
   	add_review(5,"Very good, awesome")
 		expect(current_path).to eq '/restaurants'
 		expect(page).to have_content('Very good, awesome')
