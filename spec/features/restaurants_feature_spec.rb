@@ -69,7 +69,8 @@ describe 'restaurants index page' do
   end
 
   context 'average rating' do
-    it 'displays average rating for a restaurant' do
+
+    it 'displays average rating for a restaurant with two reviews' do
       create_restaurant("Apo's Peninsula Restaurant", "Polichrono", "Greek")
       add_review(5)
       add_review(3)
@@ -78,7 +79,7 @@ describe 'restaurants index page' do
       expect(page).to have_content 'Average Rating: 4'
     end
 
-    it 'displays average rating for more reviews' do
+    it 'displays average rating for a restaurant with three reviews' do
       create_restaurant("Apo's Peninsula Restaurant", "Polichrono", "Greek")
       add_review(5)
       add_review(3)
