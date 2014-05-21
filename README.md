@@ -14,6 +14,9 @@ Technologies used
 - Rspec
 - HTML
 - Postgresql
+- Mustache.js
+- Phantom.js
+- [Poltergeist]
 
 How to run it
 ----
@@ -37,3 +40,4 @@ Pairing Partners
 
 [Dan]:https://github.com/DLDB
 [Apo]:https://github.com/apostolistax
+[Poltergeist]:https://github.com/teampoltergeist/poltergeist
