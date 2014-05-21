@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+    @review = Review.new
   end
 
   def create
@@ -17,7 +18,7 @@ class RestaurantsController < ApplicationController
       redirect_to('/restaurants')
     else
       render 'new'
-    end 	
+    end
   end
 
   def edit
