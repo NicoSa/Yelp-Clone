@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'helpers/helpers_spec'
 
 describe 'restaurants index page' do
 
