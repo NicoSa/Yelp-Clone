@@ -1,27 +1,34 @@
 <template id="review_template">
 <li>
-  <strong>{{ rating }}</strong> - {{ comment }}
+	<strong>{{ star_rating }}</strong> - {{ comment }} 
 </li>
 </template>
+
 <% if @restaurants.any? %>
 	<% @restaurants.each do |restaurant| %>
-		<h1><%= restaurant.name %></h1><a href="/restaurants/<%= restaurant.id %>/edit"> Edit <%= restaurant.name %></a>
+		<div class='restaurant'>
+		<h1><%= restaurant.name %></h1>
+		  <%= link_to " Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
 	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-	     <!-- <%=  link_to " Add Review", new_restaurant_review_path(restaurant) %> -->
+
+	      <h4 class='review_count'>
 	      <% if restaurant.reviews.any? %>
-	      	<h3>Average Rating: <%= restaurant.average_rating.round %> <%= star_rating(restaurant.average_rating.round) %></h3>
+		      	<h3>Average Rating: 
+		      	<span class='average_rating_number'><%= restaurant.average_rating.round %></span>
+		      	<span class='average_rating_stars'><%= star_rating(restaurant.average_rating.round) %></span>
+		      	</h3>
 	      <% else %>
-	      	<br><br><strong>No Average Rating available<strong>
+	      		<br><br><strong>No Average Rating available<strong>
 	      <% end %>
-	      <h4><%= pluralize restaurant.reviews.count , 'review' %></h4>
+	      <%= pluralize restaurant.reviews.count , 'review' %></h4>
 			  <ul>
-			  <% if restaurant.reviews.count == 0 %>
-			  	No reviews
-			  <% else %>
-				      <% restaurant.reviews.each do |review| %>
-				      	<li><%= star_rating(review.rating) %> <%= review.comment %> <%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %></li>
-			      	  <% end %>
-			  <% end %>
+				  <% if restaurant.reviews.count == 0 %>
+				  	No reviews
+				  <% else %>
+					      <% restaurant.reviews.each do |review| %>
+					      	<li><%= star_rating(review.rating) %> <%= review.comment %> <%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %></li>
+				      	  <% end %>
+				  <% end %>
 			  </ul>
 			  <%= form_for [restaurant, @review] do |f| %>
 			  <%= f.label :comment %>
@@ -31,9 +38,9 @@
 			  <%= f.select(:rating, (1..5)) %>
 
 			  <%= f.submit %>
-<% end %>
+		<% end %>
+	</div>
 	<% end %>
 <% else %>
 	No restaurants yet
 <% end %>
-<button id='testing'>Javascript Test</button>
