@@ -1,3 +1,5 @@
+<%= link_to "Create Restaurant", new_restaurant_path %>
+
 <template id="review_template">
 <li>
 	<strong>{{ star_rating }}</strong> - {{ comment }} 
@@ -8,12 +10,14 @@
 	<% @restaurants.each do |restaurant| %>
 		<div class='restaurant'>
 		<h1><%= restaurant.name %></h1>
-		  <%= link_to " Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
-	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+		  <% if user_signed_in? %>
+        	<%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+        	<%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete, data: { confirm: 'Are you sure?' } %>
+      	  <% end %>
 
 	      <h4 class='review_count'><%= pluralize restaurant.reviews.count, 'review' %></h4>
 		      	<h3>Average Rating: 
-		      	<span class='average_rating_number'><%= restaurant.average_rating %></span>
+		      	<span class='average_rating_number'><%= number_with_precision(restaurant.average_rating, precision: 1) %></span>
 		      	<span class='average_rating_stars'><%= star_rating(restaurant.average_rating) %></span>
 		      	</h3>
 	      

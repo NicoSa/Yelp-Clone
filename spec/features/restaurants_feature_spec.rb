@@ -12,43 +12,61 @@ describe 'restaurants index page', js: true do
 
   end
 
-  context 'creating a restaurant' do
+  context 'logged out' do
 
+    it 'takes us to the sign in page' do
+      visit('/restaurants')
+      click_link 'Create Restaurant'
 
-    it 'adds it to the restaurants index' do
-      create_restaurant("InAndOutBurger","1 California Drive, Los Angeles", "Burgers")
-
-      expect(current_path).to eq '/restaurants'
-      expect(page).to have_content 'InAndOutBurger'
-
-      restaurant = Restaurant.first
-      expect(restaurant.name).to eq('InAndOutBurger')
-      expect(restaurant.address).to eq('1 California Drive, Los Angeles')
-      expect(restaurant.cuisine).to eq('Burgers')
-    end
-
-    it 'can add a different restaurant' do
-      create_restaurant("Lardo", "205 Richmond Road, London", "Pizzaria")
-
-      expect(current_path).to eq '/restaurants'
-      expect(page).to have_content 'Lardo'
+      expect(page).to have_content 'Sign up'
     end
 
   end
 
+  context 'logged in: creating a restaurant' do
 
-  context 'creating an INVALID restaurant' do
-
-    it 'with invalid name' do
-      create_restaurant
-      expect(page).to have_content 'Error'
+    before do 
+      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
+      login_as user
     end
 
-  end
+    context 'with valid data' do
+
+      it 'adds it to the restaurants index' do
+        create_restaurant("InAndOutBurger","1 California Drive, Los Angeles", "Burgers")
+
+        restaurant = Restaurant.first
+        expect(restaurant.name).to eq('InAndOutBurger')
+        expect(restaurant.address).to eq('1 California Drive, Los Angeles')
+        expect(restaurant.cuisine).to eq('Burgers')
+      end
+
+      it 'can add a different restaurant' do
+        create_restaurant("Lardo", "205 Richmond Road, London", "Pizzaria")
+
+        expect(current_path).to eq '/restaurants'
+        expect(page).to have_content 'Lardo'
+      end
+
+    end
+
+
+    context 'with invalid data' do
+
+      it 'with invalid name' do
+        create_restaurant
+        expect(page).to have_content 'Error'
+      end
+
+    end
 
   context 'editing existing restaurants' do
 
     before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
+
+    before do
+      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
+    end
 
     it 'can change the name of a restaurant' do
       visit('/restaurants')
@@ -65,6 +83,22 @@ describe 'restaurants index page', js: true do
       expect(current_path).to eq '/restaurants'
       expect(page).to_not have_content 'KFC'
       expect(page).to have_content 'Entry Deleted'
+    end
+
+  end
+
+end
+
+  context 'logged out' do
+    
+    it 'shows no edit link' do
+      visit('/restaurants')
+      expect(page).not_to have_link('Edit KFC')
+    end
+
+    it 'shows no delete link' do
+      visit('/restaurants')
+      expect(page).not_to have_link('Delete KFC')
     end
 
   end
