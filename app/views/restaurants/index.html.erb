@@ -11,7 +11,7 @@
 		  <%= link_to " Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
 	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
 
-	      <h4 class='review_count'>
+	      <h4 class='review_count'><%= pluralize restaurant.reviews.count, 'review' %></h4>
 	      <% if restaurant.reviews.any? %>
 		      	<h3>Average Rating: 
 		      	<span class='average_rating_number'><%= restaurant.average_rating.round %></span>
@@ -20,7 +20,6 @@
 	      <% else %>
 	      		<br><br><strong>No Average Rating available<strong>
 	      <% end %>
-	      <%= pluralize restaurant.reviews.count , 'review' %></h4>
 			  <ul>
 				  <% if restaurant.reviews.count == 0 %>
 				  	No reviews
