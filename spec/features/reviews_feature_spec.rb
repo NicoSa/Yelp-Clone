@@ -5,6 +5,11 @@ describe 'reviews function', js: true do
 
   before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
 
+  before do
+      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
+      login_as user
+  end
+
   specify 'no reviews have been added' do
     visit('/restaurants')
     expect(page).to have_content '0 reviews'
@@ -35,7 +40,6 @@ describe 'reviews function', js: true do
 	it 'can delete a review' do
 	  add_review(5,"Very good, awesome!")
     click_on('Delete')
-    expect(current_path).to eq '/restaurants'
     expect(page).to_not have_content 'Very good, awesome!'
   end
 

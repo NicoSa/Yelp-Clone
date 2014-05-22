@@ -15,10 +15,10 @@ describe 'restaurants index page', js: true do
   context 'logged out' do
 
     it 'takes us to the sign in page' do
-      visit('/restaurants')
+      visit('/')
       click_link 'Create Restaurant'
 
-      expect(page).to have_content 'Sign up'
+      expect(page).to have_content 'Login Register Name Address Cuisine'
     end
 
   end
@@ -90,7 +90,7 @@ describe 'restaurants index page', js: true do
 end
 
   context 'logged out' do
-    
+
     it 'shows no edit link' do
       visit('/restaurants')
       expect(page).not_to have_link('Edit KFC')
