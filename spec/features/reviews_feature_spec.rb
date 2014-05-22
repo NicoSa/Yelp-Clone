@@ -1,20 +1,20 @@
 require 'spec_helper'
 require 'helpers/helpers_spec'
 
-describe 'reviews function' do
+describe 'reviews function', js: true do
 
   before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
 
   specify 'no reviews have been added' do
     visit('/restaurants')
-    expect(page).to have_content 'No reviews'
+    expect(page).to have_content '0 reviews'
   end
 
-  it 'one review has been added', js: true do
+  it 'one review has been added' do
   	add_review(5,"Very good, awesome")
 		expect(current_path).to eq '/restaurants'
 		expect(page).to have_content('Very good, awesome')
-		expect(page).to have_content('5')
+		expect(page).to have_content('★★★★★')
   end
 
   it 'should display number+review for one entry' do

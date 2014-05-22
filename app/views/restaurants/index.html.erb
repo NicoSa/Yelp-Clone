@@ -12,22 +12,16 @@
 	      <%= link_to " Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
 
 	      <h4 class='review_count'><%= pluralize restaurant.reviews.count, 'review' %></h4>
-	      <% if restaurant.reviews.any? %>
 		      	<h3>Average Rating: 
-		      	<span class='average_rating_number'><%= restaurant.average_rating.round %></span>
-		      	<span class='average_rating_stars'><%= star_rating(restaurant.average_rating.round) %></span>
+		      	<span class='average_rating_number'><%= restaurant.average_rating %></span>
+		      	<span class='average_rating_stars'><%= star_rating(restaurant.average_rating) %></span>
 		      	</h3>
-	      <% else %>
-	      		<br><br><strong>No Average Rating available<strong>
-	      <% end %>
+	      
 			  <ul>
-				  <% if restaurant.reviews.count == 0 %>
-				  	No reviews
-				  <% else %>
+				 
 					      <% restaurant.reviews.each do |review| %>
 					      	<li><%= star_rating(review.rating) %> <%= review.comment %> <%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %></li>
 				      	  <% end %>
-				  <% end %>
 			  </ul>
 			  <%= form_for [restaurant, @review] do |f| %>
 			  <%= f.label :comment %>

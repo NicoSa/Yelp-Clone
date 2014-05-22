@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'helpers/helpers_spec'
 
-describe 'restaurants index page' do
+describe 'restaurants index page', js: true do
 
   context 'no restaurants have been added' do
 
@@ -87,7 +87,7 @@ describe 'restaurants index page' do
       add_review(2)
 
       expect(current_path).to eq '/restaurants'
-      expect(page).to have_content 'Average Rating: 3'
+      expect(page).to have_content 'Average Rating: 3.3'
     end
 
   end
