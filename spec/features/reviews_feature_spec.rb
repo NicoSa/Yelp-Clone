@@ -29,7 +29,6 @@ describe 'reviews function', js: true do
     add_review(5,"Very good")
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('1 review')
-    save_and_open_page
   end
 
   xit 'should show error if you want to post another review for the same restaurant' do
@@ -41,7 +40,6 @@ describe 'reviews function', js: true do
   end
 
   it 'can delete a review' do
-    save_and_open_page
     add_review(5,"Very good, awesome!")
     click_on('Delete')
     expect(page).to_not have_content 'Very good, awesome!'
