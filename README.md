@@ -1,10 +1,15 @@
 Yelp-Clone
 ===
 We´re creating a YELP clone to get a basic introduction to Rails.
+![](public/gulp-screenshot.png)
 
 Objectives of exercise
 ----
 Object orientation, folder structure, migrating the Databases correctly, test-driving everything.
+
+What could be added
+----
+Diverse validations as well as more frontend design
 
 Technologies used
 ----

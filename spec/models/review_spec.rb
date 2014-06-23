@@ -11,5 +11,4 @@ describe Review do
     review = Review.new(rating: 0)
     expect(review).to have(1).error_on(:rating)
   end
-
 end

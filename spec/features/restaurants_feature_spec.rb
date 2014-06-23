@@ -12,17 +12,6 @@ describe 'restaurants index page', js: true do
 
   end
 
-  context 'logged out' do
-
-    it 'takes us to the sign in page' do
-      visit('/')
-      click_link 'Create Restaurant'
-
-      expect(page).to have_content 'Login Register Name Address Cuisine'
-    end
-
-  end
-
   context 'logged in: creating a restaurant' do
 
     before do
@@ -131,5 +120,4 @@ describe 'restaurants index page', js: true do
     end
 
   end
-
 end

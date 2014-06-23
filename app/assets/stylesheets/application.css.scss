@@ -19,3 +19,32 @@
 #review_template {
 	display: none;
 }
+
+.jumbotron {
+	background: url('/images/background.png');
+}
+
+.navbar-fixed-top {
+	background: #003366;
+}
+
+body {
+	background: #003366;
+}
+
+.logo {
+	float: left;
+	height: 25%;
+	width: 25%;
+	margin-left: -11%;
+	margin-top: 2%;
+	padding-right: 3%;	
+}
+
+.new_restaurant {
+	background: white;
+}
+
+.create-restaurant {
+	display: block;
+}

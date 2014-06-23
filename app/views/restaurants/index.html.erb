@@ -1,13 +1,13 @@
-<%= link_to "Create Restaurant", new_restaurant_path %>
 
 <template id="review_template">
 <li>
 	<strong>{{ star_rating }}</strong> {{ comment }} <% if user_signed_in? %>{{{ delete_link }}} {{ user_email }}<% end %>
 </li>
 </template>
-
 <% if @restaurants.any? %>
 	<% @restaurants.each do |restaurant| %>
+		<div class="panel panel-default">
+		<div class="panel-body">
 		<div class='restaurant'>
 		<h1><%= restaurant.name %></h1>
 		  <% if user_signed_in? %>
@@ -39,8 +39,11 @@
 
 			  <% end %>
 		<% end %>
+  </div>
+</div>
 	</div>
 	<% end %>
 <% else %>
 	No restaurants yet
 <% end %>
+  	

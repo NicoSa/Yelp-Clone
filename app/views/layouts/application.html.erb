@@ -1,21 +1,80 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>MakersYelp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<%= notice %>
-<%= alert %>
-	<% if user_signed_in? %>
-		<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-		<%= link_to('Edit registration', edit_user_registration_path) %>
-	<% else %>
-		<%= link_to('Login', new_user_session_path) %>
-		<%= link_to('Register', new_user_registration_path) %>
-	<% end %>
-<%= yield %>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  	<%= csrf_meta_tags %>
+
+    <title>Gulp</title>
+
+  </head>
+
+  <body>
+	<%= alert %>
+	<%= notice %>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+			<div class="navbar-collapse collapse">
+                <% if user_signed_in? %>
+                	<div class="navbar-form navbar-right">
+						<%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-default form-group" %>
+					</div>
+				<% else %>	
+	                <%= form_for(User.new, as: :user, url: session_path(:user), html: {class: "navbar-form navbar-right", role:"form"}) do |f| %>
+	              	<div class="form-group">
+	                	<%= f.email_field :email, autofocus: true, placeholder:"Email" %>
+	              	</div>
+	              	<div class="form-group">
+	                	<%= f.password_field :password, autocomplete: "off", placeholder:"Password" %>
+	              	</div>
+	                	<%= f.submit "Login", class:"btn btn-default" %>
+	            	<% end %>
+            <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+	
+
+
+    <div class="jumbotron">
+      <div class="container">
+  		<img src="/gulp.png" class="logo">
+    	<h1>Gulp!</h1>
+    	<p>Do you like to eat? Do you like to talk about it? This is the right place for you!</p>
+        <% if user_signed_in? %>
+			<p><%= link_to "Create Restaurant", new_restaurant_path, class: "btn btn-lg btn btn-default" %></p>
+		<% else %>
+        	<p><a class="btn btn-lg btn btn-default" role="button" href="/users/sign_up">Sign up &raquo;</a></p>
+       	<% end %>
+      </div>
+    </div>
+	<%= yield %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Nico Saueressig 2014</p>
+      </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </body>
 </html>

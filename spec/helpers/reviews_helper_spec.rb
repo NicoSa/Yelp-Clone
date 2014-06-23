@@ -21,5 +21,4 @@ describe ReviewsHelper do
     end
 
   end
-
 end

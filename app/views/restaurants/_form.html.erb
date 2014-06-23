@@ -7,16 +7,12 @@
     <% end %>
     </ul>
 <% end %>
+<%= form_for @restaurant, html: { class:"input-group" } do |f| %>
+	<%= f.text_field :name, class:"form-control", placeholder: "Name" %>
 
-<%= form_for @restaurant do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
+	<%= f.text_area :address, class:"form-control", placeholder: "Address" %>
 
-	<%= f.label :address %>
-	<%= f.text_area :address %>
-
-	<%= f.label :cuisine %>
-	<%= f.text_area :cuisine %>
+	<%= f.text_area :cuisine, class:"form-control", placeholder: "Cuisine" %>
 
 	<%= f.submit %>
 <% end %>
