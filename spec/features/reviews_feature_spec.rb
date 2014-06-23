@@ -6,8 +6,8 @@ describe 'reviews function', js: true do
   before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
 
   before do
-      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
-      login_as user
+    user = User.create(email: 'alex@a.com', password: 'testing1', password_confirmation: 'testing1')
+    login_as user
   end
 
   specify 'no reviews have been added' do
@@ -15,50 +15,35 @@ describe 'reviews function', js: true do
     expect(page).to have_content '0 reviews'
   end
 
-  it 'one review has been added' do
-  	add_review(5,"Very good, awesome")
-		expect(current_path).to eq '/restaurants'
-		expect(page).to have_content('Very good, awesome')
-		expect(page).to have_content('★★★★★')
+  it 'one review has been added', js: true do
+    add_review(5,"Very good, awesome")
+    expect(current_path).to eq '/restaurants'
+    expect(page).to have_content('Very good, awesome')
+    expect(page).to have_content('★★★★★')
+    within(".reviews") do
+      expect(page).to have_content('alex@a.com')
+    end
   end
 
   it 'should display number+review for one entry' do
-  	add_review(5,"Very good")
-		expect(current_path).to eq '/restaurants'
-		expect(page).to have_content('1 review')
+    add_review(5,"Very good")
+    expect(current_path).to eq '/restaurants'
+    expect(page).to have_content('1 review')
+    save_and_open_page
   end
 
-  it 'should display number+reviews for more than one entry' do
-  	add_review(5,"Very good")
-  	fill_in "Comment", with: 'Sucks!'
-		select('2', :from => 'Rating')
-		click_on('Create Review')
-		expect(current_path).to eq '/restaurants'
-		expect(page).to have_content('2 reviews')
+  xit 'should show error if you want to post another review for the same restaurant' do
+    add_review(5,"Very good")
+    fill_in "Comment", with: 'Sucks!'
+    select('2', :from => 'Rating')
+    click_on('Create Review')
+    expect(page).to have_content('You have rated this restaurant already!')
   end
 
-	it 'can delete a review' do
-	  add_review(5,"Very good, awesome!")
+  it 'can delete a review' do
+    save_and_open_page
+    add_review(5,"Very good, awesome!")
     click_on('Delete')
     expect(page).to_not have_content 'Very good, awesome!'
   end
-
-  # specify 'rating can never be bigger than 5' do
-  # 	add_review_with_invalid_rating(100)
-  # end
-
-  # specify 'rating can never be lower than 1' do
- 	# 	add_review_with_invalid_rating(0)
-  # end
-
-  # def add_review_with_invalid_rating(rating, comment="")
-  # 	visit('/restaurants')
-	 #  click_on('Add Review')
-	 # 	fill_in "Comment", with: "#{comment}"
-		# select("#{rating}", :from => 'Rating')
-	 #  click_on('Create Review')
-  #   expect(current_path).to eq '/restaurants'
-  #   expect(page).to_not have_content "#{rating}"
-  # end
-
 end

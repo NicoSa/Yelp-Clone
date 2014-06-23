@@ -25,8 +25,8 @@ describe 'restaurants index page', js: true do
 
   context 'logged in: creating a restaurant' do
 
-    before do 
-      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
+    before do
+      user = User.create(email: 'alex@a.com', password: 'testing1', password_confirmation: 'testing1')
       login_as user
     end
 
@@ -60,34 +60,34 @@ describe 'restaurants index page', js: true do
 
     end
 
-  context 'editing existing restaurants' do
+    context 'editing existing restaurants' do
 
-    before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
+      before { Restaurant.create(name: 'KFC', address: '1 high st, London', cuisine: 'Chicken') }
 
-    before do
-      user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
-    end
+      before do
+        user = User.create(email: 'alex@a.com', password: 'test', password_confirmation: 'test')
+      end
 
-    it 'can change the name of a restaurant' do
-      visit('/restaurants')
-      click_on 'Edit KFC'
-      fill_in 'Name', with: 'Mother Clucker'
-      click_button 'Update Restaurant'
-      expect(current_path).to eq '/restaurants'
-      expect(page).to have_content 'Mother Clucker'
-    end
+      it 'can change the name of a restaurant' do
+        visit('/restaurants')
+        click_on 'Edit KFC'
+        fill_in 'Name', with: 'Mother Clucker'
+        click_button 'Update Restaurant'
+        expect(current_path).to eq '/restaurants'
+        expect(page).to have_content 'Mother Clucker'
+      end
 
-    it 'can delete a restaurant' do
-      visit('/restaurants')
-      click_on 'Delete KFC'
-      expect(current_path).to eq '/restaurants'
-      expect(page).to_not have_content 'KFC'
-      expect(page).to have_content 'Entry Deleted'
+      it 'can delete a restaurant' do
+        visit('/restaurants')
+        click_on 'Delete KFC'
+        expect(current_path).to eq '/restaurants'
+        expect(page).to_not have_content 'KFC'
+        expect(page).to have_content 'Entry Deleted'
+      end
+
     end
 
   end
-
-end
 
   context 'logged out' do
 
@@ -104,6 +104,12 @@ end
   end
 
   context 'average rating' do
+
+    before do
+      user = User.create(email: 'alex@a.com', password: 'testing1', password_confirmation: 'testing1')
+      login_as user
+    end
+
 
     it 'displays average rating for a restaurant with two reviews' do
       create_restaurant("Apo's Peninsula Restaurant", "Polichrono", "Greek")

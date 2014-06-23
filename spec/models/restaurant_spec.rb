@@ -30,18 +30,18 @@ describe Restaurant do
 
   context 'it returns error when input is in invalid format' do
 
-  	let(:restaurant) { Restaurant.new(name: 'nandos', address: '1', cuisine: 'a')}
+    let(:restaurant) { Restaurant.new(name: 'nandos', address: '1', cuisine: 'a')}
 
     it 'the name is not capitalized' do
       restaurant.should have(1).error_on(:name)
     end
 
     it 'the address is too short' do
-    	restaurant.should have(1).error_on(:address)
+      restaurant.should have(1).error_on(:address)
     end
 
     it 'the cuisine is too short' do
-    	restaurant.should have(1).error_on(:cuisine)
+      restaurant.should have(1).error_on(:cuisine)
     end
 
   end

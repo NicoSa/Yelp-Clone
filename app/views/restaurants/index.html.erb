@@ -2,7 +2,7 @@
 
 <template id="review_template">
 <li>
-	<strong>{{ star_rating }}</strong> - {{ comment }} 
+	<strong>{{ star_rating }}</strong> {{ comment }} <% if user_signed_in? %>{{{ delete_link }}} {{ user_email }}<% end %>
 </li>
 </template>
 
@@ -14,19 +14,20 @@
         	<%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
         	<%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete, data: { confirm: 'Are you sure?' } %>
       	  <% end %>
-
+	
 	      <h4 class='review_count'><%= pluralize restaurant.reviews.count, 'review' %></h4>
 		      	<h3>Average Rating: 
 		      	<span class='average_rating_number'><%= number_with_precision(restaurant.average_rating, precision: 1) %></span>
 		      	<span class='average_rating_stars'><%= star_rating(restaurant.average_rating) %></span>
 		      	</h3>
 	      
-			  <ul>
+			  <ul class="reviews">
 				 
 					      <% restaurant.reviews.each do |review| %>
-					      	<li><%= star_rating(review.rating) %> <%= review.comment %> <%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %></li>
+					      	<li><%= star_rating(review.rating) %> <%= review.comment %> <%= review.user.email %><% if user_signed_in? %><%= link_to "Delete", restaurant_review_path(restaurant, review), method: :delete %><% end %></li>
 				      	  <% end %>
 			  </ul>
+			  <% if user_signed_in? %>
 			  <%= form_for [restaurant, @review] do |f| %>
 			  <%= f.label :comment %>
 			  <%= f.text_area :comment %>
@@ -35,6 +36,8 @@
 			  <%= f.select(:rating, (1..5)) %>
 
 			  <%= f.submit %>
+
+			  <% end %>
 		<% end %>
 	</div>
 	<% end %>

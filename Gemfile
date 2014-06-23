@@ -44,5 +44,6 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'launchy'
 
 end

@@ -8,7 +8,7 @@ end
 
 def add_review(rating, comment="")
   visit('/restaurants')
-  fill_in "Comment", with: "#{comment}"
-  select("#{rating}", :from => 'Rating')
+  fill_in 'Comment', with: comment
+  select(rating, :from => 'Rating')
   click_on('Create Review')
 end

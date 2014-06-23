@@ -7,19 +7,22 @@ class ReviewsController < ApplicationController
 
   def create
   	@restaurant = Restaurant.find(params[:restaurant_id])
-    @review = @restaurant.reviews.create!(params[:review].permit(:comment, :rating))
-      # respond_to do |format|
-      #   format.html{ redirect_to '/restaurants' }
-      #   format.json{ render json: review }
-      # end
-    render 'create', content_type: :json
+    puts @restaurant.reviews.find_by(user_id: params[:user_id]).nil?
+      if @restaurant.reviews.find_by(user_id: params[:user_id]).nil?
+        @review = @restaurant.reviews.create!(params[:review].permit(:comment, :rating))
+        @review.user = current_user
+        @review.save
+        render 'create', content_type: :json
+      else
+        flash[:notice] = "You have rated this restaurant already!"
+      end
   end
 
 
   def destroy
   	restaurant = Restaurant.find(params[:restaurant_id])
-  	to_destroy = restaurant.reviews.find(params[:id])
-  	to_destroy.destroy
+  	review_to_destroy = restaurant.reviews.find(params[:id])
+  	review_to_destroy.destroy
   	redirect_to('/restaurants')
   end
 
